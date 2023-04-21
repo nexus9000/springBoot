@@ -14,6 +14,7 @@
  <h2 th:case="null"> No users </h2>
  <div th:case="*">
      <h2>Users</h2>
+        
      <table class="table">
       <thead>
         <tr>
@@ -27,13 +28,14 @@
       <tr th:each="user : ${users}">
         <td th:text="${user.name}"></td>
         <td th:text="${user.email}"></td>
-        <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
-        <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
+        <td><a th:href="@{/edit/{id}(id=${user.id})}"><button type="button" class="btn btn-success">Edit</button></a></td>
+        <td><a th:href="@{/delete/{id}(id=${user.id})}"><button type="button" class="btn btn-danger">Delete</button></a></td>
        </tr> 
       </tbody> 
      </table>
      </div>
      <p><a href="/signup">Add a new user</a></p>
+     
     </div> 
       </div>
     </div>
