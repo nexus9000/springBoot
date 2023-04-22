@@ -22,13 +22,14 @@
 				<form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Name">
-						<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+						<input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Name" required>
+						
 					</div>
+					<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 					</br>
 					<div class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-						<input type="text" th:field="*{email}" id="email" class="form-control" placeholder="Email">
+						<input type="email" th:field="*{email}" id="email" class="form-control" placeholder="Email">
 					</div>
 					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></br></br>
 					<button type="submit" class="btn btn-primary">Add User</button>
