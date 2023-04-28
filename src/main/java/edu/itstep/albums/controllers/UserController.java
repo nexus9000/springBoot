@@ -28,6 +28,12 @@ public class UserController {
        model.addAttribute("users", userRepository.findAll());
        return "index";
    }
+   @GetMapping("/login")
+   public String log(Model model) {
+	   
+      
+       return "login";
+   }
    @GetMapping("/edit/{id}")
    public String showUpdateForm(@PathVariable("id") long id, Model model) {
        User user = userRepository.findById(id)
@@ -36,6 +42,7 @@ public class UserController {
        model.addAttribute("user", user);
        return "update-user";
    }
+   
    @PostMapping("/update/{id}")
    public String updateUser(@PathVariable("id") long id, @Valid User user, 
      BindingResult result, Model model) {

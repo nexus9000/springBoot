@@ -32,10 +32,14 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				<li><a href ="javascript: logoutForm.submit();"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
+				
 			</ul>
 		</div>
 	</nav>
+	 <form name="logoutForm" th:hidden="true" th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-2"></div>
