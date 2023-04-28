@@ -20,7 +20,7 @@ public class BasicAuthConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/home").permitAll()
+				.requestMatchers("/api/**","/css","/js").permitAll()
 				.anyRequest().authenticated()
 			)
 			.formLogin((form) -> form

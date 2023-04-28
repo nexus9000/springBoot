@@ -12,7 +12,7 @@ import edu.itstep.albums.dao.Person;
 import edu.itstep.albums.dao.PersonRepository;
 
 @SpringBootApplication
-@EnableWebMvc
+
 public class AlbumsWebApplication {
    Logger logger = LoggerFactory.getLogger(AlbumsWebApplication.class);
 	public static void main(String[] args) {
