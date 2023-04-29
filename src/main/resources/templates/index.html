@@ -32,14 +32,15 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				<li><a href ="javascript: logoutForm.submit();"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
-				
+				<li><a href="javascript: logoutForm.submit();"><span class="glyphicon glyphicon-log-out"></span>
+						LogOut</a></li>
+
 			</ul>
 		</div>
 	</nav>
-	 <form name="logoutForm" th:hidden="true" th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
+	<form name="logoutForm" th:hidden="true" th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-2"></div>
@@ -71,32 +72,48 @@
 						</table>
 
 					</div>
-					<p><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add new user</button></p>
+					<p><button type="button" class="btn btn-info" data-toggle="modal" data-target="#AddNewUser">Add new
+							user</button></p>
 
 				</div>
 			</div>
 		</div>
-		 <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
+		<!-- Modal AddNewUser 
+		<div class="modal fade" id="AddNewUser" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Add New User</h4>
+					</div>
+					<div class="modal-body">
+						<p>Some text in the modal.</p><br>
+						<form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Name"
+									required>
+
+							</div>
+							<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+							</br>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+								<input type="email" th:field="*{email}" id="email" class="form-control"
+									placeholder="Email" required>
+							</div>
+							<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></br></br>
+							<button type="submit" class="btn btn-primary">Add User</button>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>-->
+
+			</div>
+		</div>
+
 	</div>
 
 </body>
