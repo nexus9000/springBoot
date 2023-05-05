@@ -16,7 +16,7 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">WebSiteName</a>
+				<a class="navbar-brand" href="#" data-toggle="modal" data-target="#exampleModal2"><strong  th:text="${site.webSiteName}"></strong></a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="#">Home</a></li>
@@ -31,7 +31,7 @@
 				<li><a href="#">Page 2</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				
 				<li><a href="javascript: logoutForm.submit();"><span class="glyphicon glyphicon-log-out"></span>
 						LogOut</a></li>
 
@@ -45,6 +45,7 @@
 		<div class="row">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-10">
+			
 				<div th:switch="${users}">
 					<h2 th:case="null"> No users </h2>
 					<div th:case="*">
@@ -53,68 +54,72 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
+									<th>Id</th>
 									<th>Name</th>
 									<th>Email</th>
+									<th>View</th>
 									<th>Edit</th>
 									<th>Delete</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="user : ${users}">
+									<td th:text="${user.id}"></td>
 									<td th:text="${user.name}"></td>
 									<td th:text="${user.email}"></td>
-									<td><a th:href="@{/edit/{id}(id=${user.id})}"><button type="button"
-												class="btn btn-success">Edit</button></a></td>
-									<td><a th:href="@{/delete/{id}(id=${user.id})}"><button type="button"
-												class="btn btn-danger">Delete</button></a></td>
+                                    <td><span class="glyphicon glyphicon-search"></span></td>  
+									<td><a th:href="@{/edit/{id}(id=${user.id})}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+									<td><a data-toggle="modal" data-target="#modal-warning"
+											th:attr="data-target='#modal-warning'+${user.id}">
+											<span class="glyphicon glyphicon-trash"></span></a>
+										<div class="modal modal-warning fade in" th:id="modal-warning+${user.id }">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">×</span></button>
+														<h5 class="modal-title">Delete User</h5>
+													</div>
+													<div class="modal-body">
+														<h3>Are you sure want to delete this user?</h3>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-outline pull-left"
+															data-dismiss="modal">Close</button>
+														<a type="button" class="btn btn-outline"
+															th:href="@{/delete/{id}(id=${user.id})}"><i
+																class="fa fa-check"></i>&nbsp;Yes</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</td>
+
 								</tr>
 							</tbody>
 						</table>
-
 					</div>
-					<p><button type="button" class="btn btn-info" data-toggle="modal" data-target="#AddNewUser">Add new
+					<p><button type="button" class="btn btn-info" data-toggle="modal" data-target="#add-user">Add new
 							user</button></p>
 
 				</div>
 			</div>
-		</div>
-		<!-- Modal AddNewUser 
-		<div class="modal fade" id="AddNewUser" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Add New User</h4>
-					</div>
-					<div class="modal-body">
-						<p>Some text in the modal.</p><br>
-						<form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-								<input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Name"
-									required>
 
-							</div>
-							<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-							</br>
-							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-								<input type="email" th:field="*{email}" id="email" class="form-control"
-									placeholder="Email" required>
-							</div>
-							<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></br></br>
-							<button type="submit" class="btn btn-primary">Add User</button>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>-->
 
-			</div>
 		</div>
 
 	</div>
+	<th:block th:replace="~{_modals :: modal('add-user')}">modal</th:block>
+    <th:block th:replace="~{_modalsM :: modal('exampleModal2')}">modal</th:block>
+<script>
+      $('#exampleModal2').on('show.bs.modal', function () {
+        var name = prompt("Please enter your site name", "Web site name");
+        $.get("/modals/modal2?name=" + name, function (data) {
+            $('#exampleModal2').find('.modal-body').html(data);
+        })
+    })
+</script>
 
 </body>
 

@@ -29,7 +29,16 @@ public class BasicAuthConfiguration {
 				.loginPage("/login")
 				.permitAll()
 			)
-			.logout((logout) -> logout.permitAll());
+			.logout((logout) -> {
+				try {
+					logout.permitAll().deleteCookies("JSESSIONID")
+					        .and()
+					        .rememberMe().rememberMeParameter("remember-me-new").tokenValiditySeconds(86400);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
 
 		return http.build();
 	}
