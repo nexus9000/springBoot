@@ -16,7 +16,40 @@ public class Block {
 		this.index = index;
 		this.previousHash = previousHash;
 		this.data = data;
+		this.timestamp = System.currentTimeMillis();
 		nonce = 0;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+	
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public int getNonce() {
+		return nonce;
+	}
+
+	public void setNonce(int nonce) {
+		this.nonce = nonce;
+	}
+
+	public String getPreviousHash() {
+		return previousHash;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setCurrentHash(String currentHash) {
+		this.currentHash = currentHash;
 	}
 
 	public final String getCurrentHash() {
@@ -28,7 +61,7 @@ public class Block {
 		}
 	}
 
-	private final String calculateHash() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	protected final String calculateHash() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		String input = index + timestamp + previousHash + data + nonce;
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		byte[] hash = digest.digest(input.getBytes("UTF-8"));
