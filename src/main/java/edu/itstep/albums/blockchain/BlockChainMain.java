@@ -10,6 +10,9 @@ public class BlockChainMain {
 
 	public static void main(String... arg) {
 		try {
+			Wallet wallet = new Wallet();
+			System.out.println("private key: "+wallet.getPrivateKey());
+			System.out.println("public key: "+ wallet.getPublicKey());
 			Block b1 = new Block(0, null, "Our first Block");// Genesis block
 			b1.mineBlock(DIFFICULTY);
 			BLOCK_CHAIN.add(b1);
