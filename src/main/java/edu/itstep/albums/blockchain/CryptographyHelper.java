@@ -2,6 +2,7 @@ package edu.itstep.albums.blockchain;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.Security;
 import java.security.spec.ECGenParameterSpec;
 
 public class CryptographyHelper {
@@ -13,7 +14,8 @@ public class CryptographyHelper {
 	 */
 	public static KeyPair ellipticCurveCrypto() {
 		try {
-			KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDSA", "BC");
+			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+			KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDSA","BC");
 			ECGenParameterSpec params = new ECGenParameterSpec("prime256v1");
 			keyPairGenerator.initialize(params);
 			return keyPairGenerator.generateKeyPair();
