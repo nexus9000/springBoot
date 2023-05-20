@@ -1,95 +1,58 @@
 package edu.itstep.albums.blockchain;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import java.io.UnsupportedEncodingException;
-import java.security.*;
 
 
 public class Block {
-	private final int index;
-	private long timestamp;
-	private String currentHash;
-	private final String previousHash;
-	private final String data;
-	private int nonce;
 
-	public Block(int index, String previousHash, String data) {
-		this.index = index;
-		this.previousHash = previousHash;
-		this.data = data;
-		this.timestamp = System.currentTimeMillis();
-		nonce = 0;
-	}
-
-	public int getIndex() {
-		return index;
-	}
-	
-	public long getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public int getNonce() {
-		return nonce;
-	}
-
-	public void setNonce(int nonce) {
-		this.nonce = nonce;
-	}
-
-	public String getPreviousHash() {
-		return previousHash;
-	}
-
-	public String getData() {
-		return data;
-	}
-
-	public void setCurrentHash(String currentHash) {
-		this.currentHash = currentHash;
-	}
-
-	public final String getCurrentHash() {
-		try {
-			String currentHash = calculateHash();
-			return currentHash;
-		} catch (NoSuchAlgorithmException | UnsupportedEncodingException exc) {
-			throw new RuntimeException(exc);
-		}
-	}
-
-	protected final String calculateHash() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		String input = index + timestamp + previousHash + data + nonce;
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		byte[] hash = digest.digest(input.getBytes("UTF-8"));
-		StringBuffer hexString = new StringBuffer();
-		for (int i = 0; i < hash.length; i++) {
-			String hex = Integer.toHexString(0xff & hash[i]);
-			if (hex.length() == 1)
-				hexString.append('0');
-			hexString.append(hex);
-
-		}
-		return hexString.toString();
-	}
-
-	public void mineBlock(int difficulty) {
-		nonce = 0;
-		String target = new String(new char[difficulty]).replace('\0', '0');
-		currentHash = getCurrentHash();
-		while (!currentHash.subSequence(0, difficulty).equals(target)) {
-			nonce++;
-			currentHash = getCurrentHash();
-		}
-	}
-
-	@Override
-	public String toString() {
-		return "Block [index=" + index + ", timestamp=" + timestamp + ", currentHash=" + currentHash + ", previousHash="
-				+ previousHash + ", data=" + data + ", nonce=" + nonce + "]";
-	}
-
+   private int id;
+   private int nonce;
+   private long timeStamp;
+   private String hash;
+   private String previousHash;
+   // Ethereum every block stores 1500-2000 transactions
+   public List<Transaction> transactions;
+   
+   public Block(String previousHash ) {
+      this.transactions = new ArrayList<>();
+      this.previousHash = previousHash;
+      this.timeStamp = new Date().getTime();
+      generateHash(); 
+   }
+   
+   public void generateHash() {
+      String dataToHash = Integer.toString(id)+previousHash+Long.toString(timeStamp)+
+            transactions.toString()+Integer.toString(nonce);
+      this.hash = CryptographyHelper.generateHash(dataToHash);
+   }
+   
+   // check if the given transaction is valid or not
+   public boolean addTransaction(Transaction transaction) {
+         
+      if(transaction == null) return false;
+      
+      // if the block is the genesis block we do not process
+      if((!previousHash.equals(Constants.GENESIS_PREV_HASH))) {
+         if((!transaction.verifyTransaction())) {
+            System.out.println("Transaction is not valid...");
+            return false;
+         }
+      }
+      
+      transactions.add(transaction);
+      System.out.println("Transaction is valid and it's added to the block "+this);
+      return true;
+   }
+   
+   // the nonce is the only parameter the miners can tune (change)
+   public void incrementNonce() {
+      this.nonce++;
+   }
+   
+   // this SHA-256 hash identifies the block
+   public String getHash() {
+      return this.hash;
+   }
 }

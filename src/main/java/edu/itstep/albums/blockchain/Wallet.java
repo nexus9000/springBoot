@@ -14,6 +14,8 @@ public class Wallet {
 		publicKey = keyPair.getPublic();
 	}
 
+	
+	
 	public PrivateKey getPrivateKey() {
 		return privateKey;
 	}
