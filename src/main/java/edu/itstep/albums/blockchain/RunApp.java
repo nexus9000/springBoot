@@ -12,5 +12,10 @@ public class RunApp {
 	 Wallet lender =  new Wallet();
 	 Blockchain chain = new Blockchain();
 	 Miner miner = new Miner();
+	 Transaction genesisTransaction = new Transaction(
+			 lender.getPublicKey(), georgi.getPublicKey(), 1000, null);
+	 genesisTransaction.generateSignature(lender.getPrivateKey());
+	 genesisTransaction.setTransactionId("0");
+	 
  }
 }
