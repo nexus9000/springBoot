@@ -3,6 +3,7 @@ package edu.itstep.albums.blockchain;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class Transaction {
@@ -23,6 +24,7 @@ public final class Transaction {
 	   this.sender = sender;
 	   this.receiver = receiver;
 	   this.inputs = inputs;
+	   this.amount = amount;
 	   calculateHash();
    }
    
@@ -141,6 +143,12 @@ public List<TransactionOutput> getOutputs() {
 
 public void setOutputs(List<TransactionOutput> outputs) {
 	this.outputs = outputs;
+}
+
+@Override
+public String toString() {
+	return "Transaction [transactionId=" + transactionId + ", sender=" + sender + ", receiver=" + receiver + ", amount="
+			+ amount + ", signature=" + Arrays.toString(signature) + "]";
 }
    
 }

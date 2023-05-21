@@ -55,4 +55,11 @@ public class Block {
    public String getHash() {
       return this.hash;
    }
+
+@Override
+public String toString() {
+	return "Block [id=" + id + ", nonce=" + nonce + ", timeStamp=" + timeStamp + ", hash=" + hash + ", previousHash="
+			+ previousHash + ", transactions=" + transactions + "]";
+}
+   
 }
