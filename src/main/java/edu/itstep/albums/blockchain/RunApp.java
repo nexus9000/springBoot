@@ -33,7 +33,7 @@ private static Logger logger = Logger.getLogger(RunApp.class);
 	 Block block1 = new Block(genesis.getHash());
 	 logger.info("georgi balance is: "+ georgi.calculateBalance());
 	 logger.info("georgi is tries to send to marto ...");
-	 block1.addTransaction(georgi.transferMoney(marto.getPublicKey(), 1000));
+	 block1.addTransaction(georgi.transferMoney(marto.getPublicKey(), 1_000));
 	 miner.mine(block1, chain);
 	 logger.info("Joro's balance: "+georgi.calculateBalance());
 	 logger.info("Marto's balance: "+ marto.calculateBalance());

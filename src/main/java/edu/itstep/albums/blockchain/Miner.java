@@ -4,7 +4,7 @@ import org.jboss.logging.Logger;
 
 public class Miner {
 	private double reward;
-	private Logger logger = Logger.getLogger(Miner.class);
+	private final Logger logger = Logger.getLogger(Miner.class);
 
 	public void mine(Block block, Blockchain blockChain) {
         while(!isGoldenHash(block)) {
