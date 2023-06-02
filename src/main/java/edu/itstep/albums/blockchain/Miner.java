@@ -7,14 +7,14 @@ public class Miner {
 	private final Logger logger = Logger.getLogger(Miner.class);
 
 	public void mine(Block block, Blockchain blockChain) {
-        while(!isGoldenHash(block)) {
-        	block.incrementNonce();
-        	block.generateHash();
-        }
-        logger.info(block + " was mined.");
-        logger.info("Hash is "+ block.getHash());
-        blockChain.addBlock(block);
-        reward += Constants.MINER_REWARD;
+		while (!isGoldenHash(block)) {
+			block.incrementNonce();
+			block.generateHash();
+		}
+
+		logger.info("Hash is " + block.getHash());
+		blockChain.addBlock(block);
+		reward += Constants.MINER_REWARD;
 	}
 
 	public boolean isGoldenHash(Block block) {
