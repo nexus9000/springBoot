@@ -18,7 +18,7 @@ public class BubbleSort {
 				   array[j] = temp;
 				   isSorted = false;
 				   count ++;
-				   System.out.println(count);
+				   System.out.println(count + " swaping");
 			   }
 		   }
 		   if(isSorted) break;
@@ -36,7 +36,7 @@ public class BubbleSort {
 	   System.out.println("Array was Init!");
 	   long startBubble = System.currentTimeMillis();
 	   System.out.println("Bubble sort was starting.....");
-	  bubbleSort(array);//n2
+	   bubbleSort(array);//n2
 	   long endBubble = System.currentTimeMillis();
 	   System.out.println((endBubble - startBubble) + " bubble sort in msec");
 	   long startQuick = System.currentTimeMillis();

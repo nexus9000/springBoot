@@ -14,21 +14,10 @@ public class TestMerkleTree {
 	  transactions.add("77");
 	  MerkleTree merkleTree = new MerkleTree(transactions);
 	  System.out.println(merkleTree.getMerkelTree().get(0));
+	  for(String transaction : transactions) {
+		  System.out.printf("%S%n", transactions);
+	  }
   }
   
-  private static int fact(int number) {
-	  if(number == 1) return number;
-	  else {
-		  return number * fact(number - 1);
-	  }
-  }
-  public static int factIter(int number) {
-	int result = number;
-	  while (number != 1) {
-		 result *=  (--number);//4*3, 12 * 2, 24 * 1
-		 if (number == 1) break;
-		
-	  }
-	  return result;
-  }
+  
 }

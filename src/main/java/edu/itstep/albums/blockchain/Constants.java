@@ -5,5 +5,5 @@ public class Constants {
    public static final String GENESIS_PREV_HASH = "0000000000000000000000000000000"
    		+ "000000000000000000000000000000000";
     //2009 50 BTC
-    public static final double MINER_REWARD = 6.25;
+    public static final double MINER_REWARD = 0.00000001;
 }
